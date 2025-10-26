@@ -7,7 +7,9 @@ import { FormsModule } from '@angular/forms';
   imports: [FormsModule],
   templateUrl: './search-bar.component.html',
   styleUrl: './search-bar.component.css'
-})
+}
+
+)
 export class SearchBarComponent {
   @Output() search = new EventEmitter<string>();
   searchQuery: string = '';

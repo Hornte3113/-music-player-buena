@@ -1,0 +1,16 @@
+<div class="h-screen bg-black flex flex-col overflow-hidden">
+  <!-- Barra de búsqueda superior -->
+  <div class="bg-gradient-to-r from-black to-red-950 border-b border-red-900">
+    <app-search-bar (search)="onSearch($event)"></app-search-bar>
+  </div>
+
+  <!-- Contenedor principal con 3 zonas -->
+  <div class="flex-1 flex overflow-hidden">
+    <!-- Panel derecho: Lista de canciones (ahora a la derecha) -->
+    <div class="w-96 bg-gradient-to-b from-black to-gray-900 border-r border-red-900 flex-shrink-0">
+      <app-track-list
+        [tracks]="tracks"
+        [selectedTrackId]="currentTrack?.id || null"
+        (trackSelected)="onTrackSelected($event)"
+      ></app-track-list>
+      

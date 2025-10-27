@@ -11,7 +11,7 @@ export class SpotifyService {
   private readonly API_URL = 'https://api.spotify.com/v1';
   
   // TOKEN TEMPORAL 
-  private readonly SPOTIFY_TOKEN = 'BQBCdZzqJXPfh2TXHvLO04mDx6E7eJszVX0cuaxEstTayYV8W2ccVZ0g_MxXQVNClkeuRBTEKWEvtIZXTZ2qGWdwW4NDLNL9EUZBvC6LOMfZD49TX2-LMEdh-lhG8fEFrBijqL1c2NTVbFPA8KI5Ib19uv968y6L9wRhcSzJtpPLYVp4E3dPd0uCuX_jUE3jg8VV5UYZwyJAsB-BHQptVGEhGWAXTahqkZmc8YZs7oNEHN1ALpeZeO24v-QWvYbnbnq3dWDQ5laJ3soEMmAK2XTLCaPoe2rxaB2lo-b293jgcJB5zQ5fFknXl_Wd64jiXFI0ryn4';
+  private readonly SPOTIFY_TOKEN = 'BQDv_5ntBz2LN7mAAmat7T5VKgnvUy5A2keWUjkBwIDvZn4rvdf1QZGeX5CMm9ohqNWb2rEHFnq7kUV4Mf_C4weAGr-A6a2xq9jG4JK3f6mKF6k2QM2oEI3jztS1Vx9g-8YbLmG3-4JS7gGnXtwoHmYGWOuZBP_cMbF-LT_RqAsBurjhLqiunkedI-gaGDtmvuu4MEpjU-bDPM4tJ0gElV4nUg6uZ1wDiUtH_UfcU_Bjb7nuaAmTGT1YyfnYCxst-yM59mTQOhnoCwzZfUiHrnNQhyLKdnDrfM6JMM9_V30HcdHs4YQlVwnFK9WKhNqwLMzsf99W';
 
   constructor(private http: HttpClient) { }
 

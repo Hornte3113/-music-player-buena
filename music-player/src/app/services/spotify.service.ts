@@ -10,9 +10,8 @@ import { SpotifySearchResponse, Track } from '../models/track.interface';
 export class SpotifyService {
   private readonly API_URL = 'https://api.spotify.com/v1';
   
-  // TOKEN TEMPORAL - Reemplaza esto con tu token de Spotify
-  // Para obtener un token: https://developer.spotify.com/console/get-search-item/
-  private readonly SPOTIFY_TOKEN = 'BQA19_ig-6oeNCW4CxVRy4pKaw0ssVE6vDTEbqUUbOQErdtJBZGBWAEW5Ihy9MSOKpPzzmvRk3f74R5-uYTLaNO8pSvXbddQXzp98cSv9TBF5L4K5R_Oto3HTa_Q5_VmRUYCJCDW2j9FV2u95z_lSiK0iPMfdlW9QqwK_oZBt6VXRvePTJc_GnclN6aRwedgIAJ9dLJvOh-4sXs0ZEsrVRRwyqisQBS2vPAoLWc1BClCAe8Lc2Sz8d9ry_NX9UWZgOdCMuZf6DqTV_OMgRlwUxCzAaHgeECIBKNz6m8R-LM2ZUkz3i1nXV__ZnOo47vIuJn1-0Js';
+  // TOKEN TEMPORAL 
+  private readonly SPOTIFY_TOKEN = 'BQBCdZzqJXPfh2TXHvLO04mDx6E7eJszVX0cuaxEstTayYV8W2ccVZ0g_MxXQVNClkeuRBTEKWEvtIZXTZ2qGWdwW4NDLNL9EUZBvC6LOMfZD49TX2-LMEdh-lhG8fEFrBijqL1c2NTVbFPA8KI5Ib19uv968y6L9wRhcSzJtpPLYVp4E3dPd0uCuX_jUE3jg8VV5UYZwyJAsB-BHQptVGEhGWAXTahqkZmc8YZs7oNEHN1ALpeZeO24v-QWvYbnbnq3dWDQ5laJ3soEMmAK2XTLCaPoe2rxaB2lo-b293jgcJB5zQ5fFknXl_Wd64jiXFI0ryn4';
 
   constructor(private http: HttpClient) { }
 
@@ -29,7 +28,7 @@ export class SpotifyService {
     );
   }
 
-  // Método alternativo usando fetch si prefieres
+  
   async searchTracksWithFetch(query: string): Promise<Track[]> {
     const response = await fetch(
       `${this.API_URL}/search?q=${encodeURIComponent(query)}&type=track&limit=20`,

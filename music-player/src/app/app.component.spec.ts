@@ -17,13 +17,14 @@ describe('AppComponent', () => {
   it(`should have the 'spotify-player' title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('spotify-player');
+    expect(app.title).toEqual('music-player');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, spotify-player');
+    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, music-player');
   });
 });
+// lo aguregue guiandome de un tuotorial de youtube de un reproductor

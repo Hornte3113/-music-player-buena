@@ -19,7 +19,7 @@ export class PlayerComponent {
     this.isPlaying = !this.isPlaying;
   }
 
-
+  
   getArtistNames(): string {
     if (!this.currentTrack) return '';
     return this.currentTrack.artists.map(artist => artist.name).join(', ');

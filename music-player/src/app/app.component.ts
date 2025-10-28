@@ -1,54 +1,43 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterOutlet } from '@angular/router'; // Importa RouterOutlet
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
-import { TrackListComponent } from './components/track-list/track-list.component';
+import { StaticPlaylistComponent } from './components/static-playlist/static-playlist.component'; // Importa el nuevo componente
 import { PlayerComponent } from './components/player/player.component';
-import { SpotifyService } from './services/spotify.service';
 import { Track } from './models/track.interface';
+import { SearchResultsComponent } from './components/search-results/search-results.component'; // Importa SearchResultsComponent
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
     CommonModule,
+    RouterOutlet, // Añade RouterOutlet
     SearchBarComponent,
-    TrackListComponent,
+    StaticPlaylistComponent, // Añade StaticPlaylistComponent
     PlayerComponent
   ],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css'] // Corregido a styleUrls
 })
 export class AppComponent {
-  title = 'Spotify Player';
-  tracks: Track[] = [];
+  title = 'Spotify Player'; // Puedes mantener o quitar el título si no lo usas
   currentTrack: Track | null = null;
-  isLoading: boolean = false;
-  errorMessage: string = '';
 
-  constructor(private spotifyService: SpotifyService) {}
-
-  onSearch(query: string): void {
-    this.isLoading = true;
-    this.errorMessage = '';
-
-    this.spotifyService.searchTracks(query).subscribe({
-      next: (tracks) => {
-        this.tracks = tracks;
-        this.isLoading = false;
-        if (tracks.length === 0) {
-          this.errorMessage = 'No se encontraron resultados';
-        }
-      },
-      error: (error) => {
-        console.error('Error al buscar canciones:', error);
-        this.errorMessage = 'Error al buscar. Verifica tu token de Spotify.';
-        this.isLoading = false;
-        this.tracks = [];
-      }
-    });
-  }
+  // Ya no necesitas: tracks, isLoading, errorMessage, constructor(spotifyService), onSearch
 
   onTrackSelected(track: Track): void {
+    console.log('Track selected:', track);
     this.currentTrack = track;
+  }
+
+  // Método para escuchar el evento del componente cargado en router-outlet
+  onActivate(componentRef: any) {
+    // Si el componente cargado es SearchResultsComponent, suscríbete a su evento
+    if (componentRef instanceof SearchResultsComponent) {
+      componentRef.trackSelectedForResult.subscribe((track: Track) => {
+        this.onTrackSelected(track);
+      });
+    }
   }
 }

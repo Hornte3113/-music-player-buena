@@ -19,7 +19,6 @@ export class PlayerComponent {
     this.isPlaying = !this.isPlaying;
   }
 
-  
   getArtistNames(): string {
     if (!this.currentTrack) return '';
     return this.currentTrack.artists.map(artist => artist.name).join(', ');
@@ -27,9 +26,9 @@ export class PlayerComponent {
 
   getAlbumImage(): string {
     if (!this.currentTrack) {
-      return 'https://via.placeholder.com/400x400?text=Selecciona+una+cancion';
+      return 'https://via.placeholder.com/80x80?text=No+Track';
     }
-    return this.currentTrack.album.images[0]?.url || 'https://via.placeholder.com/400x400?text=No+Image';
+    return this.currentTrack.album.images[0]?.url || 'https://via.placeholder.com/80x80?text=No+Image';
   }
 
   onVolumeChange(event: Event): void {
@@ -44,5 +43,12 @@ export class PlayerComponent {
 
   toggleMute(): void {
     this.isMuted = !this.isMuted;
+  }
+
+  formatDuration(ms: number | undefined): string {
+    if (!ms) return '0:00';
+    const minutes = Math.floor(ms / 60000);
+    const seconds = Math.floor((ms % 60000) / 1000);
+    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
   }
 }

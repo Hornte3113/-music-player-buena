@@ -25,4 +25,10 @@ export class TrackListComponent {
   getAlbumImage(track: Track): string {
     return track.album.images[0]?.url || 'https://via.placeholder.com/300x300?text=No+Image';
   }
+
+  formatDuration(ms: number): string {
+    const minutes = Math.floor(ms / 60000);
+    const seconds = Math.floor((ms % 60000) / 1000);
+    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+  }
 }

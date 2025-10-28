@@ -1,27 +1,82 @@
-<div class="h-full bg-gradient-to-b from-gray-900 to-black text-white p-6 overflow-y-auto">
-  <h1 class="text-3xl font-bold mb-6">Resultados para "{{ searchQuery }}"</h1>
+<div class="h-full bg-gradient-to-b from-gray-900 to-black text-white overflow-y-auto">
+  <!-- Encabezado con botón de regreso -->
+  <div class="sticky top-0 bg-gradient-to-b from-gray-900 to-transparent z-10 pb-4">
+    <div class="p-6 flex items-center justify-between">
+      <div class="flex items-center space-x-4">
+        <button
+          (click)="goToHome()"
+          class="bg-black bg-opacity-50 hover:bg-opacity-70 text-white p-2 rounded-full transition-all"
+          title="Volver a inicio"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+          </svg>
+        </button>
+        <h1 class="text-3xl font-bold">Resultados para "{{ searchQuery }}"</h1>
+      </div>
+    </div>
+  </div>
 
-  <div *ngIf="isLoading" class="text-center py-10">
+  <!-- Loading spinner -->
+  <div *ngIf="isLoading" class="text-center py-20">
     <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-red-600 mx-auto mb-4"></div>
     <p class="text-gray-400">Buscando...</p>
   </div>
 
-  <div *ngIf="errorMessage && !isLoading" class="text-center py-10">
-     <svg class="w-16 h-16 text-red-600 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
-     </svg>
+  <!-- Error message -->
+  <div *ngIf="errorMessage && !isLoading" class="text-center py-20 px-6">
+    <svg class="w-16 h-16 text-red-600 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+    </svg>
     <p class="text-red-500 text-lg">{{ errorMessage }}</p>
   </div>
 
-  <div *ngIf="!isLoading && !errorMessage">
-    <section *ngIf="tracks.length > 0" class="mb-8">
-      <h2 class="text-2xl font-semibold mb-4 text-red-500">Canciones</h2>
+  <!-- Resultados -->
+  <div *ngIf="!isLoading && !errorMessage" class="px-6 pb-8">
+    <!-- Sección de Canciones -->
+    <section *ngIf="tracks.length > 0" class="mb-12">
+      <h2 class="text-2xl font-bold mb-6 text-red-500 flex items-center">
+        <svg class="w-8 h-8 mr-2" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M18 3a1 1 0 00-1.196-.98l-10 2A1 1 0 006 5v9.114A4.369 4.369 0 005 14c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2V7.82l8-1.6v5.894A4.37 4.37 0 0015 12c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2V3z"/>
+        </svg>
+        Canciones
+      </h2>
       <app-track-list
-          [tracks]="tracks"
-          [selectedTrackId]="selectedTrackId"
-          (trackSelected)="onTrackSelectedFromList($event)">
-       </app-track-list>
+        [tracks]="tracks"
+        [selectedTrackId]="selectedTrackId"
+        (trackSelected)="onTrackSelectedFromList($event)">
+      </app-track-list>
     </section>
 
-    </div>
+    <!-- Sección de Artistas -->
+    <section *ngIf="artists.length > 0" class="mb-12">
+      <h2 class="text-2xl font-bold mb-6 text-red-500 flex items-center">
+        <svg class="w-8 h-8 mr-2" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+        </svg>
+        Artistas
+      </h2>
+      <app-artist-list
+        [artists]="artists"
+        [selectedArtistId]="selectedArtistId"
+        (artistSelected)="onArtistSelected($event)">
+      </app-artist-list>
+    </section>
+
+    <!-- Sección de Álbumes -->
+    <section *ngIf="albums.length > 0" class="mb-12">
+      <h2 class="text-2xl font-bold mb-6 text-red-500 flex items-center">
+        <svg class="w-8 h-8 mr-2" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M4 3a2 2 0 100 4h12a2 2 0 100-4H4z"/>
+          <path fill-rule="evenodd" d="M3 8h14v7a2 2 0 01-2 2H5a2 2 0 01-2-2V8zm5 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z" clip-rule="evenodd"/>
+        </svg>
+        Álbumes
+      </h2>
+      <app-album-list
+        [albums]="albums"
+        [selectedAlbumId]="selectedAlbumId"
+        (albumSelected)="onAlbumSelected($event)">
+      </app-album-list>
+    </section>
+  </div>
 </div>

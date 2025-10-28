@@ -1,43 +1,61 @@
-<div class="h-full bg-black overflow-y-auto">
-  <div class="p-4">
-    <h2 class="text-red-600 font-bold text-xl mb-4">Resultados de búsqueda</h2>
-    
-    <div *ngIf="tracks.length === 0" class="text-gray-400 text-center py-8">
-      <svg class="w-16 h-16 mx-auto mb-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/>
-      </svg>
-      <p>Busca tu música favorita</p>
+<div class="space-y-2">
+  <div
+    *ngFor="let track of tracks; let i = index"
+    (click)="onSelectTrack(track)"
+    [class.bg-red-900]="selectedTrackId === track.id"
+    [class.bg-opacity-50]="selectedTrackId === track.id"
+    class="flex items-center p-3 rounded-lg hover:bg-gray-800 cursor-pointer transition-all group"
+  >
+    <!-- Número de índice -->
+    <div class="w-8 text-gray-400 text-sm font-medium mr-4">
+      {{ i + 1 }}
     </div>
 
-    <div class="space-y-2">
-      <div
-        *ngFor="let track of tracks"
-        (click)="onSelectTrack(track)"
-        [class.bg-red-900]="selectedTrackId === track.id"
-        class="flex items-center p-3 rounded-lg hover:bg-red-900 hover:bg-opacity-50 cursor-pointer transition-all group"
-      >
-        <img
-          [src]="getAlbumImage(track)"
-          [alt]="track.name"
-          class="w-14 h-14 rounded-md mr-3 object-cover"
-        />
-        <div class="flex-1 min-w-0">
-          <p class="text-white font-semibold truncate group-hover:text-red-400 transition-colors">
-            {{ track.name }}
-          </p>
-          <p class="text-gray-400 text-sm truncate">
-            {{ getArtistNames(track) }}
-          </p>
-        </div>
-        <svg
-          *ngIf="selectedTrackId === track.id"
-          class="w-5 h-5 text-red-600 ml-2"
-          fill="currentColor"
-          viewBox="0 0 20 20"
-        >
-          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-        </svg>
-      </div>
+    <!-- Imagen del álbum -->
+    <img
+      [src]="getAlbumImage(track)"
+      [alt]="track.name"
+      class="w-12 h-12 rounded-md mr-4 object-cover"
+    />
+
+    <!-- Información de la canción -->
+    <div class="flex-1 min-w-0">
+      <p class="text-white font-semibold truncate group-hover:text-red-400 transition-colors"
+         [class.text-red-400]="selectedTrackId === track.id">
+        {{ track.name }}
+      </p>
+      <p class="text-gray-400 text-sm truncate">
+        {{ getArtistNames(track) }}
+      </p>
     </div>
+
+    <!-- Nombre del álbum (oculto en móvil) -->
+    <div class="hidden md:block flex-1 min-w-0 mr-4">
+      <p class="text-gray-400 text-sm truncate">
+        {{ track.album.name }}
+      </p>
+    </div>
+
+    <!-- Duración -->
+    <div class="text-gray-400 text-sm ml-4">
+      {{ formatDuration(track.duration_ms) }}
+    </div>
+
+    <!-- Icono de reproducción -->
+    <svg
+      *ngIf="selectedTrackId === track.id"
+      class="w-5 h-5 text-red-600 ml-4 flex-shrink-0"
+      fill="currentColor"
+      viewBox="0 0 20 20"
+    >
+      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"/>
+    </svg>
   </div>
+</div>
+
+<div *ngIf="tracks.length === 0" class="text-center py-8 text-gray-500">
+  <svg class="w-16 h-16 mx-auto mb-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/>
+  </svg>
+  <p>No se encontraron canciones</p>
 </div>

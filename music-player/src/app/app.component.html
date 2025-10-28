@@ -1,17 +1,24 @@
 <div class="h-screen bg-black flex flex-col overflow-hidden">
+  <!-- Barra de búsqueda superior -->
   <div class="bg-gradient-to-r from-black to-red-950 border-b border-red-900 flex-shrink-0">
-    <app-search-bar></app-search-bar> </div>
+    <app-search-bar></app-search-bar>
+  </div>
 
+  <!-- Contenedor principal con playlist lateral y contenido -->
   <div class="flex-1 flex overflow-hidden">
+    <!-- Panel lateral izquierdo - Playlist estática -->
     <div class="w-72 bg-gradient-to-b from-black to-gray-900 border-r border-red-900 flex-shrink-0">
       <app-static-playlist (trackSelected)="onTrackSelected($event)"></app-static-playlist>
     </div>
 
+    <!-- Contenido principal - Router Outlet -->
     <div class="flex-1 overflow-y-auto">
-      <router-outlet (activate)="onActivate($event)"></router-outlet> </div>
+      <router-outlet (activate)="onActivate($event)"></router-outlet>
+    </div>
   </div>
 
-   <div class="bg-black border-t border-red-900 flex-shrink-0">
-      <app-player [currentTrack]="currentTrack"></app-player>
-   </div>
+  <!-- Reproductor inferior -->
+  <div class="bg-black border-t border-red-900 flex-shrink-0">
+    <app-player [currentTrack]="currentTrack"></app-player>
+  </div>
 </div>

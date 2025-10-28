@@ -11,6 +11,11 @@ export interface Artist {
   id: string;
   name: string;
   images?: Image[];
+  genres?: string[];
+  followers?: {
+    total: number;
+  };
+  popularity?: number;
 }
 
 export interface Album {
@@ -18,6 +23,8 @@ export interface Album {
   name: string;
   images: Image[];
   release_date: string;
+  artists?: Artist[];
+  total_tracks?: number;
 }
 
 export interface Image {
@@ -29,5 +36,11 @@ export interface Image {
 export interface SpotifySearchResponse {
   tracks: {
     items: Track[];
+  };
+  artists?: {
+    items: Artist[];
+  };
+  albums?: {
+    items: Album[];
   };
 }

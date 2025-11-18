@@ -1,12 +1,13 @@
 # ARCHIVO DE PRUEBA PARA UN FLUJO DE TRABAJO EN GITHUB
 #hola
+#probando
 name: archivo de deploy para bucket s3 con angular
 
 on:
     push:
         branches:
             - main
-            - pruebas
+            - probando
 
            
 

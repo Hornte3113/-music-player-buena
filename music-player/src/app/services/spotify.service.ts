@@ -11,7 +11,6 @@ export class SpotifyService {
   private readonly API_URL = 'https://api.spotify.com/v1';
   private readonly TOKEN_URL = 'https://accounts.spotify.com/api/token';
   
-  // CONFIGURACIÓN: Reemplaza estos valores con tus credenciales de Spotify
   private readonly CLIENT_ID = 'fe3e6901d05043e1bd21da215de3a31d';
   private readonly CLIENT_SECRET = '5382ee41d03c4bcf86209a7d6c770a5f';
   
@@ -20,16 +19,11 @@ export class SpotifyService {
 
   constructor(private http: HttpClient) { }
 
-  /**
-   * Obtiene un token de acceso usando Client Credentials Flow
-   */
   private getAccessToken(): Observable<string> {
-    // Si ya tenemos un token válido, lo retornamos
     if (this.accessToken && Date.now() < this.tokenExpiryTime) {
       return of(this.accessToken);
     }
 
-    // Codificar credenciales en Base64
     const credentials = btoa(`${this.CLIENT_ID}:${this.CLIENT_SECRET}`);
     
     const headers = new HttpHeaders({
@@ -42,13 +36,12 @@ export class SpotifyService {
     return this.http.post<any>(this.TOKEN_URL, body, { headers }).pipe(
       tap(response => {
         this.accessToken = response.access_token;
-        // El token expira en 3600 segundos (1 hora), lo guardamos con 5 minutos de margen
         this.tokenExpiryTime = Date.now() + (response.expires_in - 300) * 1000;
-        console.log('✅ Token de Spotify obtenido correctamente');
+        console.log('Token de Spotify obtenido correctamente');
       }),
       map(response => response.access_token),
       catchError(error => {
-        console.error('❌ Error al obtener token de Spotify:', error);
+        console.error('Error al obtener token de Spotify:', error);
         if (error.status === 401) {
           return throwError(() => new Error('Client ID o Client Secret inválidos. Verifica tus credenciales en spotify.service.ts'));
         }
@@ -57,9 +50,6 @@ export class SpotifyService {
     );
   }
 
-  /**
-   * Obtiene los headers con el token de autorización
-   */
   private getHeaders(): Observable<HttpHeaders> {
     return this.getAccessToken().pipe(
       map(token => new HttpHeaders({
@@ -68,9 +58,6 @@ export class SpotifyService {
     );
   }
 
-  /**
-   * Método auxiliar para hacer peticiones autenticadas
-   */
   private makeAuthenticatedRequest<T>(url: string): Observable<T> {
     return this.getHeaders().pipe(
       switchMap(headers => this.http.get<T>(url, { headers }))

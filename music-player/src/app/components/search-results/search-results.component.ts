@@ -76,13 +76,11 @@ export class SearchResultsComponent implements OnInit {
   onArtistSelected(artist: Artist): void {
     this.selectedArtistId = artist.id;
     console.log('Artista seleccionado:', artist);
-    // Aquí podrías navegar a una vista de detalle del artista o cargar sus canciones
   }
 
   onAlbumSelected(album: Album): void {
     this.selectedAlbumId = album.id;
     console.log('Álbum seleccionado:', album);
-    // Aquí podrías navegar a una vista de detalle del álbum o cargar sus canciones
   }
 
   goToHome(): void {

@@ -13,7 +13,7 @@ export class StaticPlaylistComponent {
   @Output() trackSelected = new EventEmitter<Track>();
   selectedTrackId: string | null = null;
 
-  // Playlist estática de ejemplo
+  // Playlist estática 
   staticTracks: Track[] = [
     {
       id: 'static1',
@@ -52,32 +52,6 @@ export class StaticPlaylistComponent {
         release_date: '2011-01-24'
       },
       duration_ms: 285493,
-      preview_url: null
-    },
-    {
-      id: 'static4',
-      name: 'Levitating',
-      artists: [{ id: 'a4', name: 'Dua Lipa' }],
-      album: {
-        id: 'al4',
-        name: 'Future Nostalgia',
-        images: [{ url: 'https://i.scdn.co/image/ab67616d0000b2739f0c4d96806d1c4a585e3b63', height: 640, width: 640 }],
-        release_date: '2020-03-27'
-      },
-      duration_ms: 203064,
-      preview_url: null
-    },
-    {
-      id: 'static5',
-      name: 'Bohemian Rhapsody',
-      artists: [{ id: 'a5', name: 'Queen' }],
-      album: {
-        id: 'al5',
-        name: 'A Night at the Opera',
-        images: [{ url: 'https://i.scdn.co/image/ab67616d0000b2731e319e65f8d2e2762a72c2c0', height: 640, width: 640 }],
-        release_date: '1975-11-21'
-      },
-      duration_ms: 354320,
       preview_url: null
     }
   ];

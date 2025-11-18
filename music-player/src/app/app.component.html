@@ -6,12 +6,12 @@
 
   <!-- Contenedor principal con playlist lateral y contenido -->
   <div class="flex-1 flex overflow-hidden">
-    <!-- Panel lateral izquierdo - Playlist estática -->
+    <!-- Panel lateral izquierdo - la playlist estática -->
     <div class="w-72 bg-gradient-to-b from-black to-gray-900 border-r border-red-900 flex-shrink-0">
       <app-static-playlist (trackSelected)="onTrackSelected($event)"></app-static-playlist>
     </div>
 
-    <!-- Contenido principal - Router Outlet -->
+    <!--  Router Outlet -->
     <div class="flex-1 overflow-y-auto">
       <router-outlet (activate)="onActivate($event)"></router-outlet>
     </div>
